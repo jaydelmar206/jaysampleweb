@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  .gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    scroll-snap-align: start;
+  }
+</style>
+</head>
+<body>
+  <div class="Downloads">
+    <img src="1.jpg" alt="Image 1">
+    <img src="2.jpg" alt="Image 2">
+    <img src="3.jpg" alt="Image 3">
+    <img src="4.jpg" alt="Image 4">
+  </div>
+  <script>
+    let Downloads = document.querySelector('.Downloads');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    Downloads.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - Downloads.offsetLeft;
+      scrollLeft = Downloads.scrollLeft;
+    });
+    Downloads.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+    Downloads.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+    Downloads.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - Downloads.offsetLeft;
+      const walk = (x - startX) * 3;
+      Downloads.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+</body>
+</html>
